@@ -81,6 +81,8 @@ app.get('/', function (req, res) {
 io.on('connection', function (socket) {
   socket.on('direction', function (data) {
 
+    console.log(data);
+
   switch(data) {
       case 'front':
           goForward();
