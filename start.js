@@ -102,7 +102,9 @@ app.get('/virtualjoystick.js', function (req, res) {
 });  
 
 io.on('connection', function (socket) {
-
+ 
+ sockets[socket.id] = socket;
+ console.log("Total clients connected : ", Object.keys(sockets).length);
 
 // Camera logic
   socket.on('disconnect', function() {
