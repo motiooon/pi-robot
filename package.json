@@ -1,0 +1,17 @@
+{
+  "name": "robot",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gabriel Baciu",
+  "dependencies": {
+    "express": "^4.10.6",
+    "johnny-five": "0.8.36",
+    "raspi-io": "2.0.2",
+    "socket.io": "^1.2.1"
+  },
+  "license": "ISC"
+}

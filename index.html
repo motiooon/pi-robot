@@ -1,0 +1,40 @@
+<html>
+<head></head>
+<body>
+	
+<h3>Aloha!</h3>
+<br/><br/><br/><br/>
+<h4>Use keyboards to move robot! [-_-]</h4>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost');
+
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+
+    e = e || window.event;
+
+    if (e.keyCode == '38') {
+        socket.emit('direction', 'front');
+    }
+    else if (e.keyCode == '40') {
+        socket.emit('direction', 'back');
+    }
+    else if (e.keyCode == '37') {
+        socket.emit('direction', 'left');
+    }
+    else if (e.keyCode == '39') {
+        socket.emit('direction', 'right');
+    }
+
+}  
+</script>
+
+
+
+</body>
+</html>
+
+
