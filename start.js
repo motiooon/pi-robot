@@ -83,7 +83,7 @@ var lastUpdate;
 
 var sockets = {};
 
-var RaspiCam = require("../lib/raspicam");
+var RaspiCam = require("raspicam");
 
 app.use('/', express.static(path.join(__dirname, 'stream')));
 
