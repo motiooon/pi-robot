@@ -131,6 +131,8 @@ io.on('connection', function (socket) {
   }
    
   function startStreaming(io) {
+
+    console.log('startStreaming called');
    
     if (app.get('watchingFile')) {
       io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
@@ -139,6 +141,8 @@ io.on('connection', function (socket) {
    
     var args = ["-w", "640", "-h", "480", "-o", "'./stream/image_stream.jpg'", "-t", "999999999", "-tl", "100"];
     proc = spawn('raspistill', args);
+
+    console.log('proc', proc);
    
     console.log('Watching for changes...');
    
