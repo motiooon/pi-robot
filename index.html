@@ -10,6 +10,7 @@
 			padding		: 0;
 			margin		: 0;
 			background-color: #BBB;
+			font-family: sans-serif;
 		}
 		#info {
 			position	: absolute;
@@ -39,11 +40,7 @@
 </head>
 <body>
 	
-<h3>Aloha!</h3>
-
-<h4>Use keyboards to move robot! [-_-]</h4>
-<br/>
-<h4>Or if you are on a mobile just touch screen</h4>
+<h4>Touch anywhere in the page!</h4>
 
 <br/>
 <div id="container"></div>
@@ -75,7 +72,12 @@ function checkKey(e) {
 }  
 
 
-var joystick = new VirtualJoystick();
+var joystick	= new VirtualJoystick({
+	container	: document.getElementById('container'),
+	mouseSupport	: true,
+});
+
+
 var r = setInterval(function(){
 	if(joystick.right()){
 		socket.emit('direction', 'right');
@@ -86,7 +88,7 @@ var r = setInterval(function(){
 	}else if(joystick.down()){
 		socket.emit('direction', 'back');
 	}						
-},10);
+},1/30 * 1000);
 
 
 
