@@ -39,16 +39,24 @@
 
 </head>
 <body>
-	
-<h4>Touch anywhere in the page!</h4>
-
 <br/>
-<div id="container"></div>
-
+<div id="container">
+	<img src="" id="stream">
+</div>
+<!-- jQuery -->
+<script src="http://code.jquery.com/jquery.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src='/virtualjoystick.js'></script>
 <script>
   var socket = io.connect('http://192.168.1.20:3000/');
+
+ socket.on('liveStream', function(url) {
+    $('#stream').attr('src', url);
+  });
+ 
+  function startStream() {
+    socket.emit('start-stream');
+  }
 
 document.onkeydown = checkKey;
 

@@ -4,8 +4,6 @@ var board = new five.Board({
   io: new raspi()
 });
 
-var lastUpdate;
-
 board.on('ready', function () {
 
   var Motor1A = 'P1-16';
@@ -73,6 +71,19 @@ var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+var http = require('http').Server(app);
+var fs = require('fs');
+var path = require('path');
+
+var spawn = require('child_process').spawn;
+var proc;
+
+var lastUpdate;
+
+var sockets = {};
+
+app.use('/', express.static(path.join(__dirname, 'stream')));
+
 server.listen(3000);
 
 var interv =  setInterval(function(){
@@ -90,6 +101,55 @@ app.get('/virtualjoystick.js', function (req, res) {
 });  
 
 io.on('connection', function (socket) {
+
+
+// Camera logic
+  socket.on('disconnect', function() {
+    delete sockets[socket.id];
+ 
+    // no more sockets, kill the stream
+    if (Object.keys(sockets).length == 0) {
+      app.set('watchingFile', false);
+      if (proc) proc.kill();
+      fs.unwatchFile('./stream/image_stream.jpg');
+    }
+  });
+
+  socket.on('start-stream', function() {
+    startStreaming(io);
+  });
+
+  function stopStreaming() {
+    if (Object.keys(sockets).length == 0) {
+      app.set('watchingFile', false);
+      if (proc) proc.kill();
+      fs.unwatchFile('./stream/image_stream.jpg');
+    }
+  }
+   
+  function startStreaming(io) {
+   
+    if (app.get('watchingFile')) {
+      io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
+      return;
+    }
+   
+    var args = ["-w", "640", "-h", "480", "-o", "'./stream/image_stream.jpg'", "-t", "999999999", "-tl", "100"];
+    proc = spawn('raspistill', args);
+   
+    console.log('Watching for changes...');
+   
+    app.set('watchingFile', true);
+   
+    fs.watchFile('./stream/image_stream.jpg', function(current, previous) {
+      io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
+    })
+   
+  }    
+
+
+
+
   socket.on('direction', function (data) {
 
   switch(data) {
