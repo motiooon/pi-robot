@@ -11,7 +11,8 @@
     "express": "^4.10.6",
     "johnny-five": "0.8.36",
     "raspi-io": "2.0.2",
-    "socket.io": "^1.2.1"
+    "socket.io": "^1.2.1",
+    "raspicam":"*"
   },
   "license": "ISC"
 }

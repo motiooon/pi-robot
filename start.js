@@ -83,6 +83,8 @@ var lastUpdate;
 
 var sockets = {};
 
+var RaspiCam = require("../lib/raspicam");
+
 app.use('/', express.static(path.join(__dirname, 'stream')));
 
 server.listen(3000);
@@ -139,10 +141,29 @@ io.on('connection', function (socket) {
       return;
     }
    
-    var args = ["-w", "640", "-h", "480", "-o", "./stream/image_stream.jpg", "-t", "999999999", "-tl", "100"];
-    proc = spawn('raspistill', args);
+    // var args = ["-w", "640", "-h", "480", "-o", "./stream/image_stream.jpg", "-t", "999999999", "-tl", "100"];
+    // proc = spawn('raspistill', args);
 
-    console.log('proc', proc);
+    var camera = new RaspiCam({
+      mode: "photo",
+      output: "./stream/image_stream.jpg",
+      encoding: "jpg",
+      timeout: 0 // take the picture immediately
+    });
+
+    camera.on("started", function( err, timestamp ){
+      console.log("photo started at " + timestamp );
+    });
+
+    camera.on("read", function( err, timestamp, filename ){
+      console.log("photo image captured with filename: " + filename );
+    });
+
+    camera.on("exit", function( timestamp ){
+      console.log("photo child process has exited at " + timestamp );
+    });
+
+    camera.start();
    
     console.log('Watching for changes...');
    
