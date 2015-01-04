@@ -55,7 +55,7 @@ board.on('ready', function () {
     // Set pin outputs 
     p16.high();
     p18.low();
-    p22.high();`
+    p22.high();
   }
 
   function turnLeft(){
