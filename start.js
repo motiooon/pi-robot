@@ -4,15 +4,7 @@ var board = new five.Board({
   io: new raspi()
 });
 
-var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
 
-server.listen(3000);
-
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
-});
 
 board.on('ready', function () {
 
@@ -75,6 +67,16 @@ board.on('ready', function () {
       p22.low();
       p19.low();
   }
+
+var app = require('express')();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+server.listen(3000);
+
+app.get('/', function (req, res) {
+  res.sendfile(__dirname + '/index.html');
+});  
 
 io.on('connection', function (socket) {
   socket.on('direction', function (data) {
