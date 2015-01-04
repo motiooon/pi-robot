@@ -14,12 +14,7 @@ app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });
 
-
-
-Initialize the board
 board.on('ready', function () {
-
-
 
   var Motor1A = 'P1-16';
   var Motor1B = 'P1-18';
