@@ -67,7 +67,8 @@ board.on('ready', function () {
       p19.low();
   }
 
-var app = require('express')();
+var express = require('express');
+var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
