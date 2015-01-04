@@ -1,12 +1,52 @@
 <html>
-<head></head>
+<head>
+	
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		
+		<style>
+		body {
+			overflow	: hidden;
+			padding		: 0;
+			margin		: 0;
+			background-color: #BBB;
+		}
+		#info {
+			position	: absolute;
+			top		: 0px;
+			width		: 100%;
+			padding		: 5px;
+			text-align	: center;
+		}
+		#info a {
+			color		: #66F;
+			text-decoration	: none;
+		}
+		#info a:hover {
+			text-decoration	: underline;
+		}
+		#container {
+			width		: 100%;
+			height		: 100%;
+			overflow	: hidden;
+			padding		: 0;
+			margin		: 0;
+			-webkit-user-select	: none;
+			-moz-user-select	: none;
+		}
+		</style>
+
+</head>
 <body>
 	
 <h3>Aloha!</h3>
-<br/><br/><br/><br/>
+
 <h4>Use keyboards to move robot! [-_-]</h4>
+<br/>
+<h4>Or if you are on a mobile just touch screen</h4>
 
 <script src="/socket.io/socket.io.js"></script>
+<script src='/virtualjoystick.js'></script>
 <script>
   var socket = io.connect('http://192.168.1.20:3000/');
 
@@ -30,6 +70,24 @@ function checkKey(e) {
     }
 
 }  
+
+
+var joystick = new VirtualJoystick();
+var r = setInterval(function(){
+	if(joystick.right()){
+		socket.emit('direction', 'right');
+	} else if(joystick.left()){
+		socket.emit('direction', 'left');
+	}else if(joystick.up()){
+		socket.emit('direction', 'front');
+	}else if(joystick.down()){
+		socket.emit('direction', 'back');
+	}						
+},10);
+
+
+
+
 </script>
 
 

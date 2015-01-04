@@ -55,7 +55,7 @@ board.on('ready', function () {
     // Set pin outputs 
     p16.high();
     p18.low();
-    p22.high();
+    p22.high();`
   }
 
   function turnLeft(){
@@ -76,13 +76,17 @@ var io = require('socket.io')(server);
 server.listen(3000);
 
 var interv =  setInterval(function(){
-  if(new Date() - lastUpdate > 100){
+  if(new Date() - lastUpdate > 40){
      stopMoving(); 
    }
-}, 100);
+}, 20);
 
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
+});  
+
+app.get('/virtualjoystick.js', function (req, res) {
+  res.sendfile(__dirname + '/virtualjoystick.js');
 });  
 
 io.on('connection', function (socket) {
