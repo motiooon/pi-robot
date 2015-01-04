@@ -4,7 +4,7 @@ var board = new five.Board({
   io: new raspi()
 });
 
-
+var lastUpdate;
 
 board.on('ready', function () {
 
@@ -36,6 +36,7 @@ board.on('ready', function () {
     p23.high();
     p21.low();
     p19.high();
+
   };
 
   function goBackwards(){
@@ -74,6 +75,12 @@ var io = require('socket.io')(server);
 
 server.listen(3000);
 
+var interv =  setInterval(function(){
+  if(new Date() - lastUpdate > 100){
+     stopMoving(); 
+   }
+}, 100);
+
 app.get('/', function (req, res) {
   res.sendfile(__dirname + '/index.html');
 });  
@@ -81,20 +88,22 @@ app.get('/', function (req, res) {
 io.on('connection', function (socket) {
   socket.on('direction', function (data) {
 
-    console.log(data);
-
   switch(data) {
       case 'front':
           goForward();
+          lastUpdate = new Date();
           break;
       case 'back':
           goBackwards();
+          lastUpdate = new Date();          
           break;
       case 'right':
           turnRight();
+          lastUpdate = new Date();          
           break;
       case 'left':
           turnLeft();
+          lastUpdate = new Date();          
           break;                
       default:
           stopMoving(); 
