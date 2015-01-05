@@ -148,10 +148,12 @@ io.on('connection', function (socket) {
       mode: "photo",
       output: "./stream/image_stream.jpg",
       encoding: "jpg",
-      quality: 30,
+      quality: 5,
       width: 320,
       height:240,
-      timeout: 0 // take the picture immediately
+      exposure:'off'
+      timeout: 0 ,// take the picture immediately
+      timelapse: 100
     });
 
     camera.on("started", function( err, timestamp ){
