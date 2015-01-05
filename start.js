@@ -116,7 +116,7 @@ io.on('connection', function (socket) {
     if (Object.keys(sockets).length == 0) {
       app.set('watchingFile', false);
       if (proc) proc.kill();
-      fs.unwatchFile('./stream/image_stream.gif');
+      fs.unwatchFile('./stream/image_stream.jpg');
     }
   });
 
@@ -128,7 +128,7 @@ io.on('connection', function (socket) {
     if (Object.keys(sockets).length == 0) {
       app.set('watchingFile', false);
       if (proc) proc.kill();
-      fs.unwatchFile('./stream/image_stream.gif');
+      fs.unwatchFile('./stream/image_stream.jpg');
     }
   }
    
@@ -137,7 +137,7 @@ io.on('connection', function (socket) {
     console.log('startStreaming called');
    
     if (app.get('watchingFile')) {
-      io.sockets.emit('liveStream', 'image_stream.gif?_t=' + (Math.random() * 100000));
+      io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
       return;
     }
    
@@ -146,8 +146,8 @@ io.on('connection', function (socket) {
 
     var camera = new RaspiCam({
       mode: "photo",
-      output: "./stream/image_stream.gif",
-      encoding: "gif",
+      output: "./stream/image_stream.jpg",
+      encoding: "jpg",
       quality: 30,
       width: 320,
       height:240,
@@ -172,8 +172,8 @@ io.on('connection', function (socket) {
    
     app.set('watchingFile', true);
    
-    fs.watchFile('./stream/image_stream.gif', function(current, previous) {
-      io.sockets.emit('liveStream', 'image_stream.gif?_t=' + (Math.random() * 100000));
+    fs.watchFile('./stream/image_stream.jpg', function(current, previous) {
+      io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
     })
    
   }    
