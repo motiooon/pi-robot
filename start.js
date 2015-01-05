@@ -146,7 +146,7 @@ io.on('connection', function (socket) {
 
     var camera = new RaspiCam({
       mode: "photo",
-      output: "./stream/image_stream.jpg",
+      output: "./stream/image_stream.gif",
       encoding: "gif",
       quality: 30,
       width: 320,
