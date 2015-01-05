@@ -151,9 +151,10 @@ io.on('connection', function (socket) {
       quality: 5,
       width: 320,
       height:240,
-      exposure:'off'
+      exposure:'off',
       timeout: 0 ,// take the picture immediately
-      timelapse: 100
+      timelapse: 100,
+      thumb: '0:0:0'
     });
 
     camera.on("started", function( err, timestamp ){
