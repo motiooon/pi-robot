@@ -152,7 +152,7 @@ io.on('connection', function (socket) {
       width: 320,
       height:240,
       exposure:'off',
-      timeout: 0 ,// take the picture immediately
+      timeout: 999999999 ,// take the picture immediately
       timelapse: 50,
       thumb: '0:0:0'
     });
