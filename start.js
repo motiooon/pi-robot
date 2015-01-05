@@ -153,7 +153,7 @@ io.on('connection', function (socket) {
       height:240,
       exposure:'off',
       timeout: 0 ,// take the picture immediately
-      timelapse: 100,
+      timelapse: 50,
       thumb: '0:0:0'
     });
 
@@ -175,9 +175,9 @@ io.on('connection', function (socket) {
    
     app.set('watchingFile', true);
    
-    fs.watchFile('./stream/image_stream.jpg', function(current, previous) {
-      io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
-    })
+    // fs.watchFile('./stream/image_stream.jpg', function(current, previous) {
+    //   io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
+    // })
    
   }    
 
