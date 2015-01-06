@@ -148,7 +148,7 @@ io.on('connection', function (socket) {
       mode: "photo",
       output: "./stream/image_stream.jpg",
       encoding: "jpg",
-      quality: 7,
+      quality: 8,
       width: 320,
       height:240,
       exposure:'off',
@@ -175,9 +175,11 @@ io.on('connection', function (socket) {
    
     app.set('watchingFile', true);
    
-    fs.watchFile('./stream/image_stream.jpg', function(current, previous) {
-      io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
-    })
+    // fs.watchFile('./stream/image_stream.jpg', function(current, previous) {
+    //   io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
+    // })
+
+    setInterval(function(){io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));}, 100)
    
   }    
 
