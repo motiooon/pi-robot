@@ -90,7 +90,7 @@ app.use('/', express.static(path.join(__dirname, 'stream')));
 server.listen(3000);
 
 var interv =  setInterval(function(){
-  if(new Date() - lastUpdate > 40){
+  if(new Date() - lastUpdate > 100){
      stopMoving(); 
    }
 }, 20);
@@ -153,7 +153,7 @@ io.on('connection', function (socket) {
       height:240,
       exposure:'off',
       timeout: 999999999 ,// take the picture immediately
-      timelapse: 100,
+      timelapse: 300,
       thumb: '0:0:0'
     });
 
@@ -179,7 +179,7 @@ io.on('connection', function (socket) {
     //   io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
     // })
 
-    setInterval(function(){io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));}, 100)
+    setInterval(function(){io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));}, 200)
    
   }    
 
