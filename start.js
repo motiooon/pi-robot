@@ -148,9 +148,9 @@ io.on('connection', function (socket) {
       mode: "photo",
       output: "./stream/image_stream.jpg",
       encoding: "jpg",
-      quality: 10,
-      width: 640,
-      height:480,
+      quality: 7,
+      width: 320,
+      height:240,
       exposure:'off',
       timeout: 999999999 ,// take the picture immediately
       timelapse: 100,
