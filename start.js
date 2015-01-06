@@ -148,12 +148,12 @@ io.on('connection', function (socket) {
       mode: "photo",
       output: "./stream/image_stream.jpg",
       encoding: "jpg",
-      quality: 5,
-      width: 320,
-      height:240,
+      quality: 25,
+      width: 640,
+      height:480,
       exposure:'off',
       timeout: 999999999 ,// take the picture immediately
-      timelapse: 50,
+      timelapse: 100,
       thumb: '0:0:0'
     });
 
@@ -175,9 +175,9 @@ io.on('connection', function (socket) {
    
     app.set('watchingFile', true);
    
-    // fs.watchFile('./stream/image_stream.jpg', function(current, previous) {
-    //   io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
-    // })
+    fs.watchFile('./stream/image_stream.jpg', function(current, previous) {
+      io.sockets.emit('liveStream', 'image_stream.jpg?_t=' + (Math.random() * 100000));
+    })
    
   }    
 
