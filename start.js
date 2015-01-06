@@ -148,7 +148,7 @@ io.on('connection', function (socket) {
       mode: "photo",
       output: "./stream/image_stream.jpg",
       encoding: "jpg",
-      quality: 25,
+      quality: 10,
       width: 640,
       height:480,
       exposure:'off',
